@@ -1,8 +1,3 @@
-console.log("Up and running!");
-
-
-
-
 
 var cards = [
     {
@@ -31,17 +26,7 @@ var cards = [
     
 var cardsInPlay = [];
 
-/* comment out. code to be deleted per instructions:
 
-var cardOne = cards[0];
-cardsInPlay.push(cardOne);
-console.log("User flipped " + cardOne);
-
-var cardTwo = cards[2];
-cardsInPlay.push(cardTwo);
-console.log("User flipped " + cardTwo);
-
-*/
 
 function checkForMatch () {
     if (cardsInPlay[0] === cardsInPlay[1]) {
@@ -52,12 +37,14 @@ function checkForMatch () {
     
 };
 
-function flipCard (cardId) {
-    
+function flipCard () {
+
+    var cardId = this.getAttribute("data-id");
     console.log("User flipped " + cards[cardId].rank);
     cardsInPlay.push(cards[cardId].rank);
     console.log(cards[cardId].cardImage);
     console.log(cards[cardId].suit);
+    this.setAttribute("src", cards[cardId].cardImage);
     if (cardsInPlay.length === 2) {
         checkForMatch ();
    
@@ -67,10 +54,20 @@ function flipCard (cardId) {
 
 };
 
-flipCard (1);
+//cannot get addEventListener to function below
 
 
+function createBoard () {
+    for (var i = 0; i < cardsInPlay.length; i++) {
+        var cardElement = document.createElement("img");
+        cardElement.setAttribute("src", "images/back.png");
+        cardElement.setAttribute("data-id", i);
+        cardElement.addEventListener("click", flipCard());
+        document.getElementById("game-board").appendChild(cardElement);
+    }
+};
 
 
+createBoard();
 
 
